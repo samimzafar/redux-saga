@@ -1,21 +1,24 @@
-import React from 'react'
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router,Route } from 'react-router-dom'
-import Cart from './Components/Cart';
-import Header from './Components/Header/Header';
-import Nav from './Components/NavLinks/Nav';
-import Store from './Redux/Store/Store';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 function App() {
+  const { name, age, joke } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   return (
-      <Provider store={Store}>
-      <Router>
-      <Nav/>
-      <Route path="/" exact component={Header} />
-      <Route path="/Cart" exact component={Cart} />
-      </Router>
-      
-      </Provider>
-)
+    <>
+      <h1>Redux Saga App</h1>
+      <h3>Name = {name}</h3>
+      <button onClick={() => dispatch({ type: "UPDATE_NAME" })}>
+        Fetch Name
+      </button>
+      <br /> <br />
+      <h3>Age = {age}</h3>
+      <button onClick={() => dispatch({ type: "UPDATE_AGE" })}>
+        Fetch Age
+      </button>
+      <h3>Joke = {joke}</h3>
+      <button onClick={() => dispatch({ type: "GET_JOKE" })}>Fetch Joke</button>
+    </>
+  );
 }
 
-export default App
+export default App;
